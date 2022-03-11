@@ -1,0 +1,14 @@
+{
+    "name": "Go",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "settings": {
+        "go.gopath": "/go",
+        "go.goroot": "/usr/local/go"
+    },
+    "extensions": [
+        "golang.go",
+        "zxh404.vscode-proto3"
+    ]
+}

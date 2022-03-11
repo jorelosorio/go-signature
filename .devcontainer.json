@@ -1,8 +1,0 @@
-{
-    "name": "Go",
-    "image": "mcr.microsoft.com/vscode/devcontainers/go:1.17",
-    "extensions": [
-        "golang.go",
-        "zxh404.vscode-proto3"
-    ],
-}
