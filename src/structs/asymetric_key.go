@@ -47,7 +47,7 @@ func (aKey *AsymmetricKey) PublicKeyEncodedToPem() string {
 	return base64.StdEncoding.EncodeToString(publicKeyPemBytes)
 }
 
-func NewAsymmetricKey() AsymmetricKey {
+func NewAsymmetricKey() *AsymmetricKey {
 	privatekey, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
 		log.Fatalln("Failed to create a private key")
@@ -55,5 +55,5 @@ func NewAsymmetricKey() AsymmetricKey {
 
 	publickey := &privatekey.PublicKey
 
-	return AsymmetricKey{privatekey, publickey}
+	return &AsymmetricKey{privatekey, publickey}
 }

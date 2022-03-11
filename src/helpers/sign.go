@@ -10,7 +10,7 @@ import (
 	pb "signatures-playground/src/structspb"
 )
 
-func SignMessage(message *pb.Message, key structs.AsymmetricKey) []byte {
+func SignMessage(message *pb.Message, key *structs.AsymmetricKey) []byte {
 	// Before signing, we need to hash our message
 	// The hash is what we actually sign
 	hash := sha256.New()
@@ -35,7 +35,7 @@ func SignMessage(message *pb.Message, key structs.AsymmetricKey) []byte {
 	return containerBytes
 }
 
-func IsAuthentic(container *pb.Container, key structs.AsymmetricKey) bool {
+func IsAuthentic(container *pb.Container, key *structs.AsymmetricKey) bool {
 	hash := sha256.New()
 
 	messageBytes := EncodeMessage(container.Message)
