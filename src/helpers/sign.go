@@ -10,7 +10,7 @@ import (
 	pb "signatures-playground/src/structspb"
 )
 
-func SignData(message *pb.Message, key structs.AsymmetricKey) []byte {
+func SignMessage(message *pb.Message, key structs.AsymmetricKey) []byte {
 	// Before signing, we need to hash our message
 	// The hash is what we actually sign
 	hash := sha256.New()
