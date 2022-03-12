@@ -14,7 +14,7 @@ type AsymmetricKey struct {
 	PublicKey  *rsa.PublicKey
 }
 
-func (aKey *AsymmetricKey) PrivateKeyEncodedToPem() string {
+func (aKey AsymmetricKey) PrivateKeyEncodedToPem() string {
 	privateKeyBytes := x509.MarshalPKCS1PrivateKey(aKey.PrivateKey)
 
 	privateKeyBlock := &pem.Block{
@@ -27,11 +27,11 @@ func (aKey *AsymmetricKey) PrivateKeyEncodedToPem() string {
 	return base64.StdEncoding.EncodeToString(privateKeyPemBytes)
 }
 
-func (aKey *AsymmetricKey) EncodedToPem() (string, string) {
+func (aKey AsymmetricKey) EncodedToPem() (string, string) {
 	return aKey.PrivateKeyEncodedToPem(), aKey.PublicKeyEncodedToPem()
 }
 
-func (aKey *AsymmetricKey) PublicKeyEncodedToPem() string {
+func (aKey AsymmetricKey) PublicKeyEncodedToPem() string {
 	publicKeyBytes, err := x509.MarshalPKIXPublicKey(aKey.PublicKey)
 	if err != nil {
 		log.Printf("Failed to dump publickey bytes: %s \n", err)
