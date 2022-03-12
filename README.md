@@ -6,11 +6,11 @@ This project is considered as a test for packing and signing messages that may b
 
 ## Tools
 
-- Go 1.17
+- Go `1.17`
 - Docker
 - Visual Studio Code
     > It requires a `Remote - Containers` extension. for more information please refers to: https://code.visualstudio.com/docs/remote/containers#_getting-started
-- Protocol Buffers
+- Protocol Buffers `3.19.4`
     > For more about what Protocol Buffers is please refer to: https://developers.google.com/protocol-buffers/docs/overview
 
 ## Data structure
