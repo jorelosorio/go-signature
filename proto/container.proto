@@ -3,7 +3,7 @@ package structs;
 
 import "proto/message.proto";
 
-option go_package = "src/structspb";
+option go_package = "./structspb";
 
 message Container {
     Message message = 1;

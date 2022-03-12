@@ -6,8 +6,8 @@ import (
 	"crypto/rsa"
 	"crypto/sha256"
 	"log"
-	"signatures-playground/src/structs"
-	pb "signatures-playground/src/structspb"
+	"signatures-playground/structs"
+	pb "signatures-playground/structspb"
 )
 
 func SignMessage(message *pb.Message, key *structs.AsymmetricKey) []byte {

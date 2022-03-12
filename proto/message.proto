@@ -3,7 +3,7 @@ package structs;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "src/structspb";
+option go_package = "./structspb";
 
 message Message {
     string sender = 1;

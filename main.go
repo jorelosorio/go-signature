@@ -2,9 +2,9 @@ package main
 
 import (
 	"log"
-	"signatures-playground/src/helpers"
-	"signatures-playground/src/structs"
-	pb "signatures-playground/src/structspb"
+	"signatures-playground/helpers"
+	"signatures-playground/structs"
+	pb "signatures-playground/structspb"
 )
 
 func main() {

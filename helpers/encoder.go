@@ -3,7 +3,7 @@ package helpers
 import (
 	"encoding/base64"
 	"log"
-	pb "signatures-playground/src/structspb"
+	pb "signatures-playground/structspb"
 
 	"google.golang.org/protobuf/proto"
 )
