@@ -6,6 +6,7 @@ import (
 	"signatures-playground/helpers"
 	"signatures-playground/structs"
 	pb "signatures-playground/structspb"
+	"time"
 
 	"github.com/urfave/cli/v2"
 )
@@ -15,6 +16,7 @@ func main() {
 		Name:        "Pack, sign and check messages authenticity",
 		Description: "This project is considered as a test for packing and signing messages that may be sent over to a *-third party- to validate the authenticity and trust the content inside.",
 		Version:     "1.0",
+		Compiled:    time.Now(),
 		Authors: []*cli.Author{
 			{
 				Name:  "Jorge Osorio",
