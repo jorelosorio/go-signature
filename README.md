@@ -76,13 +76,11 @@ In the main workspace path run the following command to generate a build executa
 
 > If you ran the build command, make sure to change the directory to the `bin` folder. **If you are using windows the `sp` will become `sp.exe` instead.**
 
-To create a new pair of private and public keys
-
-    sp create-keys
-
 To create a new pair of private and public keys and export them as `private_key.pem` and `public_key.pem`
 
     sp create-keys --export-path .
+
+> If `sp` is not found, try `./sp` in the same `bin` folder. **You could move it to your local bin directory as well.**
 
 To pack a new message
 

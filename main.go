@@ -33,6 +33,7 @@ func main() {
 						Name:    "export-path",
 						Aliases: []string{"ep"},
 						Usage:   "Exports keys as .pem files in the specified path",
+						Required: true,
 					},
 				},
 				Action: func(c *cli.Context) error {
@@ -41,13 +42,7 @@ func main() {
 
 						asymmetricKey.ExportPrivateKeyToPem(outputPath)
 						asymmetricKey.ExportPublicKeyToPem(outputPath)
-
-						return nil
 					}
-
-					asymmetricKey := structs.NewAsymmetricKey()
-					privateKey, publicKey := asymmetricKey.EncodedToPem()
-					fmt.Printf("%s\n%s", privateKey, publicKey)
 
 					return nil
 				},
