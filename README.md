@@ -15,7 +15,7 @@ This project is considered as a test for packing and signing messages that may b
 
 ## Data structure
 
-Message struct has the following attributes.
+A `Message` struct has the following attributes.
 
 ```
 sender (String)
@@ -23,7 +23,7 @@ payload (String)
 timestamp (Timestamp)
 ```
 
-A * `Container` has the following attributes.
+A * `Container` struct has the following attributes.
 
 ```
 message (Message)
