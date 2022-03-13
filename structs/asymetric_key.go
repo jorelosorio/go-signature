@@ -6,9 +6,9 @@ import (
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
+	"signatures-playground/utilities"
 )
 
 type AsymmetricKey struct {
@@ -47,11 +47,11 @@ func (aKey *AsymmetricKey) PublicKeyEncodedToPem() []byte {
 }
 
 func (aKey *AsymmetricKey) ExportPrivateKeyToPem(path string) {
-	exportKeyToPem(aKey.PrivateKeyEncodedToPem(), filepath.Join(path, "private_key.pem"))
+	utilities.WriteFile(filepath.Join(path, "private_key.pem"), aKey.PrivateKeyEncodedToPem())
 }
 
 func (aKey *AsymmetricKey) ExportPublicKeyToPem(path string) {
-	exportKeyToPem(aKey.PublicKeyEncodedToPem(), filepath.Join(path, "public_key.pem"))
+	utilities.WriteFile(filepath.Join(path, "public_key.pem"), aKey.PublicKeyEncodedToPem())
 }
 
 func (aKey *AsymmetricKey) ImportPrivateKey(filePath string) {
@@ -94,44 +94,12 @@ func NewAsymmetricKey() *AsymmetricKey {
 	return &AsymmetricKey{privatekey, publickey}
 }
 
-func exportKeyToPem(data []byte, filePath string) {
-	file, err := os.Create(filePath)
-
-	if err != nil {
-		fmt.Printf("Failed to create %s: %s", filePath, err)
-		os.Exit(1)
-	}
-
-	_, err = file.Write(data)
-	if err != nil {
-		fmt.Printf("Failed to write %s: %s", filePath, err)
-		os.Exit(1)
-	}
-
-	file.Close()
-}
-
 func readPemFile(filePath string) []byte {
-	file, err := os.Open(filePath)
-
-	if err != nil {
-		fmt.Printf("Failed to open %s: %s", filePath, err)
-		os.Exit(1)
-	}
-
-	dataBytes, err := ioutil.ReadAll(file)
-	if err != nil {
-		fmt.Printf("Failed to read data from %s: %s", filePath, err)
-		os.Exit(1)
-	}
-
-	block, _ := pem.Decode(dataBytes)
+	block, _ := pem.Decode(utilities.ReadFile(filePath))
 	if block == nil {
 		fmt.Printf("Failed to decode pem: %s", filePath)
 		os.Exit(1)
 	}
-
-	file.Close()
 
 	return block.Bytes
 }
