@@ -15,7 +15,7 @@ This project is considered as a test for packing and signing messages that may b
 
 ## Data structure
 
-Message data will contains the following attributes.
+Message struct has the following attributes.
 
 ```
 sender (String)
@@ -23,14 +23,14 @@ payload (String)
 timestamp (Timestamp)
 ```
 
-A *Container contains.
+A * `Container` has the following attributes.
 
 ```
 message (Message)
 signature (Bytes)
 ```
 
-> \* `Container` is a structure that contains the message that will be checked against the signature to validate the authenticity.
+> \* `Container` is the main structure to be sent, because it contains the message to be transported and the signature associated with it, **When validating the authenticity it shall be made with the message**.
 
 ## Development
 
@@ -86,8 +86,12 @@ To pack a new message
 
     sp pack-message --sender "Jorge Osorio" --payload "HOLA" --private-key-path ./private_key.pem
 
+To pack a new message importing the data from a file
+
+    sp pack-message --sender "Jorge Osorio" --payload-path ./payload.txt --private-key-path ./private_key.pem
+
 To unpack a new message
 
-    sp unpack-message --public-key-path ./public_key.pem --base64-message {BASE64_ENCODED_MESSAGE}
+    sp unpack-message --public-key-path ./public_key.pem --base64-message {BASE64_ENCODED_CONTAINER_DATA}
 
 > If you want more details about a specific command usage use `--help` argument. For instance: `sp pack-message --help` . For general information run `sp --help`.
