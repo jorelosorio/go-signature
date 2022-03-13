@@ -65,7 +65,6 @@ Only required if you add/remove new fields
 
     protoc --go_out=. proto/*.proto¨
 
-
 ### Build the command CLI tool
 
 In the main workspace path run the following command to generate a build executable
