@@ -5,12 +5,13 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/sha256"
-	"log"
+	"fmt"
+	"os"
 	"signatures-playground/structs"
 	pb "signatures-playground/structspb"
 )
 
-func SignMessage(message *pb.Message, key *structs.AsymmetricKey) []byte {
+func PackAndSignMessage(message *pb.Message, key *structs.AsymmetricKey) []byte {
 	// Before signing, we need to hash our message
 	// The hash is what we actually sign
 	hash := sha256.New()
@@ -18,7 +19,8 @@ func SignMessage(message *pb.Message, key *structs.AsymmetricKey) []byte {
 	messageBytes := EncodeMessage(message)
 	_, err := hash.Write(messageBytes)
 	if err != nil {
-		log.Fatalln("Failed hashing message", err)
+		fmt.Printf("Failed hashing message: %s", err)
+		os.Exit(1)
 	}
 
 	hashSum := hash.Sum(nil)
@@ -26,7 +28,8 @@ func SignMessage(message *pb.Message, key *structs.AsymmetricKey) []byte {
 	signatureBytes, err := rsa.SignPKCS1v15(rand.Reader, key.PrivateKey, crypto.SHA256, hashSum)
 
 	if err != nil {
-		log.Fatalln("Failed to sign message")
+		fmt.Printf("Failed to sign message: %s", err)
+		os.Exit(1)
 	}
 
 	container := &pb.Container{Message: message, Signature: signatureBytes}
@@ -39,9 +42,11 @@ func IsAuthentic(container *pb.Container, key *structs.AsymmetricKey) bool {
 	hash := sha256.New()
 
 	messageBytes := EncodeMessage(container.Message)
+
 	_, err := hash.Write(messageBytes)
 	if err != nil {
-		log.Fatalln("Failed hashing message", err)
+		fmt.Printf("Failed hashing message: %s", err)
+		os.Exit(1)
 	}
 
 	hashSum := hash.Sum(nil)
