@@ -18,16 +18,15 @@ This project is considered as a test for packing and signing messages that may b
 A `Message` struct has the following attributes.
 
 ```
-sender (String)
-payload (String)
-timestamp (Timestamp)
+Sender (String)
+Payload (Bytes)
 ```
 
 A * `Container` struct has the following attributes.
 
 ```
-message (Message)
-signature (Bytes)
+Signature (Bytes)
+Message (Message)
 ```
 
 > \* `Container` is the main structure to be sent, because it contains the message to be transported and the signature associated with it, **When validating the authenticity it shall be made with the message**.
@@ -63,7 +62,7 @@ Run the following command to install the Go protocol buffers plugin
 
 Only required if you add/remove new fields
 
-    protoc --go_out=. proto/*.proto¨
+    protoc --go_out=. proto/*.proto
 
 ### Build the command CLI tool
 

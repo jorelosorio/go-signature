@@ -81,11 +81,12 @@ func main() {
 						asymmetricKey := structs.AsymmetricKey{}
 						asymmetricKey.ImportPrivateKey(prkPath)
 
+						payloadData := []byte(payload)
 						if payloadPath != "" {
-							payload = string(utilities.ReadFile(payloadPath))
+							payloadData = utilities.ReadFile(payloadPath)
 						}
 
-						message := &pb.Message{Sender: sender, Payload: payload}
+						message := &pb.Message{Sender: sender, Payload: payloadData}
 
 						signature, encodedContainer := helpers.PackAndSignMessage(message, &asymmetricKey)
 						fmt.Printf("Signature\n==========\n%s\n\n", helpers.EncodeBase64(signature))
