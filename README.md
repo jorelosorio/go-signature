@@ -91,3 +91,5 @@ To pack a new message
 To unpack a new message
 
     sp unpack-message --public-key-path ./public_key.pem --base64-message {BASE64_ENCODED_MESSAGE}
+
+> If you want more details about a specific command usage use `--help` argument. For instance: `sp pack-message --help` . For general information run `sp --help`.
