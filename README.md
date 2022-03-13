@@ -15,7 +15,7 @@ This project is considered as a test for packing and signing messages that may b
 
 ## Data structure
 
-Message data will contains the following attributes:
+Message data will contains the following attributes.
 
 ```
 sender (String)
@@ -23,7 +23,7 @@ payload (String)
 timestamp (Timestamp)
 ```
 
-A *Container contains:
+A *Container contains.
 
 ```
 message (Message)
@@ -43,7 +43,7 @@ Install it from https://go.dev/dl/
 
 ### Protocol Buffers for Go
 
-To install the `Protocol Buffers` compiler select the right OS and architecture from https://github.com/protocolbuffers/protobuf/releases/tag/v3.19.4 and follow the commands:
+To install the `Protocol Buffers` compiler select the right OS and architecture from https://github.com/protocolbuffers/protobuf/releases/tag/v3.19.4 and follow the commands.
 
 > NOTE: Replace `protoc-3.19.4-linux-x86_64.zip` by your right configuration, **For the purpose of this project, we are using a Linux machine inside a docker container**. To get more information about other options and platforms please refer to https://github.com/protocolbuffers/protobuf/blob/master/src/README.md
 
@@ -53,7 +53,7 @@ To install the `Protocol Buffers` compiler select the right OS and architecture 
 
     rm protoc-3.19.4-linux-x86_64.zip
 
-Run the following command to install the Go protocol buffers plugin:
+Run the following command to install the Go protocol buffers plugin
 
     go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 
@@ -61,6 +61,33 @@ Run the following command to install the Go protocol buffers plugin:
 
 ### Data generation
 
-Only required if you add/remove new fields.
+Only required if you add/remove new fields
 
-    protoc --go_out=. proto/*.proto
+    protoc --go_out=. proto/*.proto¨
+
+
+### Build the command CLI tool
+
+In the main workspace path run the following command to generate a build executable
+
+    go build -o bin/sp
+
+### Using the CLI tool
+
+> If you ran the build command, make sure to change the directory to the `bin` folder. **If you are using windows the `sp` will become `sp.exe` instead.**
+
+To create a new pair of private and public keys
+
+    sp create-keys
+
+To create a new pair of private and public keys and export them as `private_key.pem` and `public_key.pem`
+
+    sp create-keys --export-path .
+
+To pack a new message
+
+    sp pack-message --sender "Jorge Osorio" --payload "HOLA" --private-key-path ./private_key.pem
+
+To unpack a new message
+
+    sp unpack-message --public-key-path ./public_key.pem --base64-message {BASE64_ENCODED_MESSAGE}
