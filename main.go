@@ -12,8 +12,9 @@ import (
 
 func main() {
 	app := &cli.App{
-		Name:    "Sign messages",
-		Version: "1.0",
+		Name:        "Pack, sign and check messages authenticity",
+		Description: "This project is considered as a test for packing and signing messages that may be sent over to a *-third party- to validate the authenticity and trust the content inside.",
+		Version:     "1.0",
 		Authors: []*cli.Author{
 			{
 				Name:  "Jorge Osorio",
