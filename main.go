@@ -6,6 +6,7 @@ import (
 	"signatures-playground/helpers"
 	"signatures-playground/structs"
 	pb "signatures-playground/structspb"
+	"signatures-playground/utilities"
 	"time"
 
 	"github.com/urfave/cli/v2"
@@ -30,9 +31,9 @@ func main() {
 				Usage:   "Creates a new pair of private and public keys",
 				Flags: []cli.Flag{
 					&cli.StringFlag{
-						Name:    "export-path",
-						Aliases: []string{"ep"},
-						Usage:   "Exports keys as .pem files in the specified path",
+						Name:     "export-path",
+						Aliases:  []string{"ep"},
+						Usage:    "Exports keys as .pem files in the specified path",
 						Required: true,
 					},
 				},
@@ -59,10 +60,14 @@ func main() {
 						Required: true,
 					},
 					&cli.StringFlag{
-						Name:     "payload",
-						Aliases:  []string{"p"},
-						Usage:    "Message payload",
-						Required: true,
+						Name:    "payload",
+						Aliases: []string{"p"},
+						Usage:   "Message payload",
+					},
+					&cli.StringFlag{
+						Name:    "payload-path",
+						Aliases: []string{"pp"},
+						Usage:   "Message payload from a file",
 					},
 					&cli.StringFlag{
 						Name:     "private-key-path",
@@ -72,16 +77,19 @@ func main() {
 					},
 				},
 				Action: func(c *cli.Context) error {
-					if sender, payload, prkPath := c.String("sender"), c.String("payload"), c.String("private-key-path"); sender != "" && payload != "" && prkPath != "" {
+					if sender, payload, payloadPath, prkPath := c.String("sender"), c.String("payload"), c.String("payload-path"), c.String("private-key-path"); sender != "" && prkPath != "" && (payload != "" || payloadPath != "") {
 						asymmetricKey := structs.AsymmetricKey{}
 						asymmetricKey.ImportPrivateKey(prkPath)
 
+						if payloadPath != "" {
+							payload = string(utilities.ReadFile(payloadPath))
+						}
+
 						message := &pb.Message{Sender: sender, Payload: payload}
 
-						signature := helpers.PackAndSignMessage(message, &asymmetricKey)
-						fmt.Println(helpers.EncodeBase64(signature))
-
-						return nil
+						signature, encodedContainer := helpers.PackAndSignMessage(message, &asymmetricKey)
+						fmt.Printf("Signature\n==========\n%s\n\n", helpers.EncodeBase64(signature))
+						fmt.Printf("Container data\n==========\n%s\n", helpers.EncodeBase64(encodedContainer))
 					}
 
 					return nil
