@@ -4,6 +4,8 @@ This project is the result of learning `Signatures` for packing and signing mess
 
 > NOTE: This project does not send the data to any server, but both roles are assumed in this solution.
 
+This project makes a CLI tool to make it easy to test the encoding, decoding and signing features.
+
 ## Tools
 
 - Go `1.17`
