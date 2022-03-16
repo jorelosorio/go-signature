@@ -10,7 +10,7 @@ import (
 )
 
 func EncodeBase64(data []byte) string {
-	return base64.StdEncoding.Strict().Strict().EncodeToString(data)
+	return base64.StdEncoding.Strict().EncodeToString(data)
 }
 
 func DecodeBase64(data string) []byte {
