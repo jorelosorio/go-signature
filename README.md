@@ -1,8 +1,8 @@
 # Signatures playground
 
-This project is considered as a test for packing and signing messages that may be sent over to a *-third party- to validate the authenticity and trust the content inside.
+This project is the result of learning `Signatures` for packing and signing messages that may be sent out to a **-third-party-server-** to validate the authenticity and trust of the content.
 
-> \* This test does not cover sending the data to the third party, both roles are assumed in this solution.
+> NOTE: This project does not send the data to any server, but both roles are assumed in this solution.
 
 ## Tools
 
