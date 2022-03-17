@@ -50,9 +50,9 @@ func main() {
 				},
 			},
 			{
-				Name:    "pack-message",
-				Aliases: []string{"pmsg"},
-				Usage:   "Creates a new message, sign it and pack it using base64 encoding",
+				Name:    "encode-message",
+				Aliases: []string{"emsg"},
+				Usage:   "Creates a new message, sign it and encode it using -base64 encoding-",
 				Flags: []cli.Flag{
 					&cli.StringFlag{
 						Name:     "sender",
@@ -76,6 +76,7 @@ func main() {
 						Usage:    "The private key path to sign the message",
 						Required: true,
 					},
+					// TODO: Include an option to export data to a file
 				},
 				Action: func(c *cli.Context) error {
 					if sender, payload, payloadPath, prkPath := c.String("sender"), c.String("payload"), c.String("payload-path"), c.String("private-key-path"); sender != "" && prkPath != "" && (payload != "" || payloadPath != "") {
@@ -98,9 +99,9 @@ func main() {
 				},
 			},
 			{
-				Name:    "unpack-message",
-				Aliases: []string{"umsg"},
-				Usage:   "Unpack a message, verifies the signature and print out the message content",
+				Name:    "decode-message",
+				Aliases: []string{"dmsg"},
+				Usage:   "Decode a message, verifies the signature and print out the message content",
 				Flags: []cli.Flag{
 					&cli.StringFlag{
 						Name:     "base64-message",

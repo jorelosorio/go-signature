@@ -8,7 +8,9 @@ This project makes a CLI tool to make it easy to test the encoding, decoding and
 
 ## Try it
 
+    docker pull jorelosorio/signatures-playground:latest
 
+    docker run -i -t jorelosorio/signatures-playground
 
 ## How to use the command CLI tool
 
@@ -16,19 +18,19 @@ To create a new pair of private and public keys and export them as `private_key.
 
     sp create-keys --export-path .
 
-To pack a new message
+To encode a new message
 
-    sp pack-message --sender "Jorge Osorio" --payload "HOLA" --private-key-path ./private_key.pem
+    sp encode-message --sender "Jorge Osorio" --payload "HOLA" --private-key-path ./private_key.pem
 
-To pack a new message importing the data from a file
+To encode a new message importing the `payload` from a file
 
-    sp pack-message --sender "Jorge Osorio" --payload-path ./payload.txt --private-key-path ./private_key.pem
+    sp encode-message --sender "Jorge Osorio" --payload-path ./payload.txt --private-key-path ./private_key.pem
 
-To unpack a new message
+To decode a new message
 
-    sp unpack-message --public-key-path ./public_key.pem --base64-message {BASE64_ENCODED_CONTAINER_DATA}
+    sp decode-message --public-key-path ./public_key.pem --base64-message {BASE64_ENCODED_CONTAINER_DATA}
 
-> If you want more details about a specific command usage use `--help` argument. For instance: `sp pack-message --help` . For general information run `sp --help`.
+> If you want more details about a specific command usage use `--help` argument. For instance: `sp encode-message --help` . For general information run `sp --help`. There are also shortcuts for the commands in the help description.
 
 ## Tools
 
