@@ -6,11 +6,35 @@ This project is the result of learning `Signatures` for packing and signing mess
 
 This project makes a CLI tool to make it easy to test the encoding, decoding and signing features.
 
+## Try it
+
+
+
+## How to use the command CLI tool
+
+To create a new pair of private and public keys and export them as `private_key.pem` and `public_key.pem`
+
+    sp create-keys --export-path .
+
+To pack a new message
+
+    sp pack-message --sender "Jorge Osorio" --payload "HOLA" --private-key-path ./private_key.pem
+
+To pack a new message importing the data from a file
+
+    sp pack-message --sender "Jorge Osorio" --payload-path ./payload.txt --private-key-path ./private_key.pem
+
+To unpack a new message
+
+    sp unpack-message --public-key-path ./public_key.pem --base64-message {BASE64_ENCODED_CONTAINER_DATA}
+
+> If you want more details about a specific command usage use `--help` argument. For instance: `sp pack-message --help` . For general information run `sp --help`.
+
 ## Tools
 
-- Go `1.17`
+- GoLang `1.17`
 - Docker
-- Visual Studio Code
+- Visual Studio Code `Optional!`
     > It requires a `Remote - Containers` extension. for more information please refers to: https://code.visualstudio.com/docs/remote/containers#_getting-started
 - Protocol Buffers `3.19.4`
     > For more about what Protocol Buffers is please refer to: https://developers.google.com/protocol-buffers/docs/overview
@@ -72,26 +96,18 @@ In the main workspace path run the following command to generate a build executa
 
     go build -o bin/sp
 
-### Using the CLI tool
+> **If you are using windows the `sp` will become `sp.exe` instead.**
 
-> If you ran the build command, make sure to change the directory to the `bin` folder. **If you are using windows the `sp` will become `sp.exe` instead.**
+### Build Docker
 
-To create a new pair of private and public keys and export them as `private_key.pem` and `public_key.pem`
+To build the docker image use `Dockerfile.deploy` and the command
 
-    sp create-keys --export-path .
+    docker build -f Dockerfile.deploy -t jorelosorio/signatures-playground:latest .
 
-> If `sp` is not found, try `./sp` in the same `bin` folder. **You could move it to your local bin directory as well.**
+To run the docker image as an interactive shell
 
-To pack a new message
+    docker run -i -t jorelosorio/signatures-playground
 
-    sp pack-message --sender "Jorge Osorio" --payload "HOLA" --private-key-path ./private_key.pem
+If everything goes well run:
 
-To pack a new message importing the data from a file
-
-    sp pack-message --sender "Jorge Osorio" --payload-path ./payload.txt --private-key-path ./private_key.pem
-
-To unpack a new message
-
-    sp unpack-message --public-key-path ./public_key.pem --base64-message {BASE64_ENCODED_CONTAINER_DATA}
-
-> If you want more details about a specific command usage use `--help` argument. For instance: `sp pack-message --help` . For general information run `sp --help`.
+    sp --help
