@@ -8,6 +8,8 @@ This project makes a CLI tool to make it easy to test the encoding, decoding and
 
 ## Try it
 
+> Use it now with a Docker instance. It will open an interactive shell where you can start to play with some commands. Please refer to `How to use the command CLI tool` below, for more details.
+
     docker pull jorelosorio/signatures-playground:latest
 
     docker run -i -t jorelosorio/signatures-playground
