@@ -9,5 +9,3 @@ RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v3.19.4/p
 RUN unzip protoc-3.19.4-linux-x86_64.zip -d /usr/local
 
 RUN rm protoc-3.19.4-linux-x86_64.zip
-
-RUN go mod download
