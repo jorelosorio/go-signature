@@ -14,8 +14,9 @@ import (
 
 func main() {
 	app := &cli.App{
-		Name:        "Pack, sign and check messages authenticity",
-		Description: "This project is considered as a test for packing and signing messages that may be sent over to a *-third party- to validate the authenticity and trust the content inside.",
+		Name:        "Signatures Playground",
+		Usage:       "sp",
+		Description: "A command-line tool playground to encode, sign and decode data",
 		Version:     "1.0",
 		Compiled:    time.Now(),
 		Authors: []*cli.Author{
