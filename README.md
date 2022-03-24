@@ -1,4 +1,4 @@
-# Go Signatures
+# Go Signature
 
 This project is the result of learning `Signatures` for packing and signing messages that may be sent out to a **-third-party-server-** to validate the authenticity and trust of the content.
 
