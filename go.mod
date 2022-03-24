@@ -1,4 +1,4 @@
-module signatures-playground
+module github.com/jorelosorio/go-signature
 
 go 1.17
 

@@ -1,9 +1,8 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -12,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the Docker image
-        run: docker build -f Dockerfile.deploy -t jorelosorio/signatures-playground:latest .
+        run: docker build -f Dockerfile.deploy -t jorelosorio/go-signature:${{ github.event.release.tag_name }} -t jorelosorio/go-signature:latest .
 
       - name: Docker Login
         uses: docker/login-action@v1.14.1
@@ -21,4 +20,4 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name }}:latest
+        run: docker push --all-tags ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.event.repository.name }}

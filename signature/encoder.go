@@ -1,10 +1,9 @@
-package helpers
+package signature
 
 import (
 	"encoding/base64"
 	"fmt"
 	"os"
-	pb "signatures-playground/structspb"
 
 	"google.golang.org/protobuf/proto"
 )
@@ -23,7 +22,7 @@ func DecodeBase64(data string) []byte {
 	return decoded
 }
 
-func EncodeMessage(message *pb.Message) []byte {
+func EncodeMessage(message *Message) []byte {
 	messageBytes, err := proto.Marshal(message)
 	if err != nil {
 		fmt.Printf("Failed to serialize message: %s", err)
@@ -33,7 +32,7 @@ func EncodeMessage(message *pb.Message) []byte {
 	return messageBytes
 }
 
-func EncodeContainer(container *pb.Container) []byte {
+func EncodeContainer(container *Container) []byte {
 	containerBytes, err := proto.Marshal(container)
 	if err != nil {
 		fmt.Printf("Failed to serialize container: %s", err)
@@ -43,8 +42,8 @@ func EncodeContainer(container *pb.Container) []byte {
 	return containerBytes
 }
 
-func DecodeContainer(data []byte) *pb.Container {
-	container := &pb.Container{}
+func DecodeContainer(data []byte) *Container {
+	container := &Container{}
 	err := proto.Unmarshal(data, container)
 	if err != nil {
 		fmt.Printf("Failed to decode container: %s", err)

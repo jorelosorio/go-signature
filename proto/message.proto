@@ -1,8 +1,9 @@
 syntax = "proto3";
-package structs;
+package signature;
 
-option go_package = "./structspb";
+option go_package = "./signature";
 
+// Message object has the payload and the sender of the message.
 message Message {
     string sender = 1;
     bytes payload = 2;

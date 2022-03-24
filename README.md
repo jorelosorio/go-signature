@@ -1,4 +1,4 @@
-# Signatures playground
+# Go Signatures
 
 This project is the result of learning `Signatures` for packing and signing messages that may be sent out to a **-third-party-server-** to validate the authenticity and trust of the content.
 
@@ -10,29 +10,29 @@ This project makes a CLI tool to make it easy to test the encoding, decoding and
 
 > Use it now with a Docker instance. It will open an interactive shell where you can start to play with some commands. Please refer to `How to use the command CLI tool` below, for more details.
 
-    docker pull jorelosorio/signatures-playground:latest
+    docker pull jorelosorio/go-signature:latest
 
-    docker run -i -t jorelosorio/signatures-playground
+    docker run -i -t jorelosorio/go-signature
 
 ## How to use the command CLI tool
 
 To create a new pair of private and public keys and export them as `private_key.pem` and `public_key.pem`
 
-    sp create-keys --export-path .
+    sign create-keys --export-path .
 
 To encode a new message
 
-    sp encode-message --sender "Jorge Osorio" --payload "HOLA" --private-key-path ./private_key.pem
+    sign encode-message --sender "Jorge Osorio" --payload "HOLA" --private-key-path ./private_key.pem
 
 To encode a new message importing the `payload` from a file
 
-    sp encode-message --sender "Jorge Osorio" --payload-path ./payload.txt --private-key-path ./private_key.pem
+    sign encode-message --sender "Jorge Osorio" --payload-path ./payload.txt --private-key-path ./private_key.pem
 
 To decode a new message
 
-    sp decode-message --public-key-path ./public_key.pem --base64-message {BASE64_ENCODED_CONTAINER_DATA}
+    sign decode-message --public-key-path ./public_key.pem --base64-message {BASE64_ENCODED_CONTAINER_DATA}
 
-> If you want more details about a specific command usage use `--help` argument. For instance: `sp encode-message --help` . For general information run `sp --help`. There are also shortcuts for the commands in the help description.
+> If you want more details about a specific command usage use `--help` argument. For instance: `sign encode-message --help` . For general information run `sign --help`. There are also shortcuts for the commands in the help description.
 
 ## Tools
 
@@ -98,20 +98,20 @@ Only required if you add/remove new fields
 
 In the main workspace path run the following command to generate a build executable
 
-    go build -o bin/sp
+    go build -o bin/sign
 
-> **If you are using windows the `sp` will become `sp.exe` instead.**
+> **If you are using windows the `sign` will become `sign.exe` instead.**
 
 ### Build Docker
 
 To build the docker image use `Dockerfile.deploy` and the command
 
-    docker build -f Dockerfile.deploy -t jorelosorio/signatures-playground:latest .
+    docker build -f Dockerfile.deploy -t jorelosorio/go-signature:latest .
 
 To run the docker image as an interactive shell
 
-    docker run -i -t jorelosorio/signatures-playground
+    docker run -i -t jorelosorio/go-signature
 
 If everything goes well run:
 
-    sp --help
+    sign --help

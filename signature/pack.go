@@ -1,4 +1,4 @@
-package helpers
+package signature
 
 import (
 	"crypto"
@@ -7,11 +7,9 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"os"
-	"signatures-playground/structs"
-	pb "signatures-playground/structspb"
 )
 
-func PackAndSignMessage(message *pb.Message, key *structs.AsymmetricKey) (signature []byte, encodedContainer []byte) {
+func PackAndSignMessage(message *Message, key *AsymmetricKey) (signature []byte, encodedContainer []byte) {
 	// Before signing, we need to hash our message
 	// The hash is what we actually sign
 	hash := sha256.New()
@@ -32,13 +30,13 @@ func PackAndSignMessage(message *pb.Message, key *structs.AsymmetricKey) (signat
 		os.Exit(1)
 	}
 
-	container := &pb.Container{Message: message, Signature: signature}
+	container := &Container{Message: message, Signature: signature}
 	encodedContainer = EncodeContainer(container)
 
 	return
 }
 
-func IsAuthentic(container *pb.Container, key *structs.AsymmetricKey) bool {
+func IsAuthentic(container *Container, key *AsymmetricKey) bool {
 	hash := sha256.New()
 
 	messageBytes := EncodeMessage(container.Message)

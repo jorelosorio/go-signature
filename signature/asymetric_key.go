@@ -1,4 +1,4 @@
-package structs
+package signature
 
 import (
 	"crypto/rand"
@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"signatures-playground/utilities"
 )
 
 type AsymmetricKey struct {
@@ -47,11 +46,11 @@ func (aKey *AsymmetricKey) PublicKeyEncodedToPem() []byte {
 }
 
 func (aKey *AsymmetricKey) ExportPrivateKeyToPem(path string) {
-	utilities.WriteFile(filepath.Join(path, "private_key.pem"), aKey.PrivateKeyEncodedToPem())
+	WriteFile(filepath.Join(path, "private_key.pem"), aKey.PrivateKeyEncodedToPem())
 }
 
 func (aKey *AsymmetricKey) ExportPublicKeyToPem(path string) {
-	utilities.WriteFile(filepath.Join(path, "public_key.pem"), aKey.PublicKeyEncodedToPem())
+	WriteFile(filepath.Join(path, "public_key.pem"), aKey.PublicKeyEncodedToPem())
 }
 
 func (aKey *AsymmetricKey) ImportPrivateKey(filePath string) {
@@ -95,7 +94,7 @@ func NewAsymmetricKey() *AsymmetricKey {
 }
 
 func readPemFile(filePath string) []byte {
-	block, _ := pem.Decode(utilities.ReadFile(filePath))
+	block, _ := pem.Decode(ReadFile(filePath))
 	if block == nil {
 		fmt.Printf("Failed to decode pem: %s", filePath)
 		os.Exit(1)

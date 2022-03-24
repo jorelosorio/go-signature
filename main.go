@@ -3,21 +3,18 @@ package main
 import (
 	"fmt"
 	"os"
-	"signatures-playground/helpers"
-	"signatures-playground/structs"
-	pb "signatures-playground/structspb"
-	"signatures-playground/utilities"
 	"time"
 
+	"github.com/jorelosorio/go-signature/signature"
 	"github.com/urfave/cli/v2"
 )
 
 func main() {
 	app := &cli.App{
-		Name:        "Signatures Playground",
-		Usage:       "sp",
+		Name:        "Signature",
+		Usage:       "sign",
 		Description: "A command-line tool playground to encode, sign and decode data",
-		Version:     "1.0",
+		Version:     "1.0.0",
 		Compiled:    time.Now(),
 		Authors: []*cli.Author{
 			{
@@ -40,7 +37,7 @@ func main() {
 				},
 				Action: func(c *cli.Context) error {
 					if outputPath := c.String("export-path"); outputPath != "" {
-						asymmetricKey := structs.NewAsymmetricKey()
+						asymmetricKey := signature.NewAsymmetricKey()
 
 						asymmetricKey.ExportPrivateKeyToPem(outputPath)
 						asymmetricKey.ExportPublicKeyToPem(outputPath)
@@ -80,19 +77,19 @@ func main() {
 				},
 				Action: func(c *cli.Context) error {
 					if sender, payload, payloadPath, prkPath := c.String("sender"), c.String("payload"), c.String("payload-path"), c.String("private-key-path"); sender != "" && prkPath != "" && (payload != "" || payloadPath != "") {
-						asymmetricKey := structs.AsymmetricKey{}
+						asymmetricKey := signature.AsymmetricKey{}
 						asymmetricKey.ImportPrivateKey(prkPath)
 
 						payloadData := []byte(payload)
 						if payloadPath != "" {
-							payloadData = utilities.ReadFile(payloadPath)
+							payloadData = signature.ReadFile(payloadPath)
 						}
 
-						message := &pb.Message{Sender: sender, Payload: payloadData}
+						message := &signature.Message{Sender: sender, Payload: payloadData}
 
-						signature, encodedContainer := helpers.PackAndSignMessage(message, &asymmetricKey)
-						fmt.Printf("Signature\n==========\n%s\n\n", helpers.EncodeBase64(signature))
-						fmt.Printf("Container data\n==========\n%s\n", helpers.EncodeBase64(encodedContainer))
+						signatureByte, encodedContainer := signature.PackAndSignMessage(message, &asymmetricKey)
+						fmt.Printf("Signature\n==========\n%s\n\n", signature.EncodeBase64(signatureByte))
+						fmt.Printf("Container data\n==========\n%s\n", signature.EncodeBase64(encodedContainer))
 					}
 
 					return nil
@@ -118,13 +115,13 @@ func main() {
 				},
 				Action: func(c *cli.Context) error {
 					if base64EncodedMessage, pkPath := c.String("base64-message"), c.String("public-key-path"); base64EncodedMessage != "" && pkPath != "" {
-						asymmetricKey := structs.AsymmetricKey{}
+						asymmetricKey := signature.AsymmetricKey{}
 						asymmetricKey.ImportPublicKey(pkPath)
 
-						decodedMessage := helpers.DecodeBase64(base64EncodedMessage)
-						messageContainer := helpers.DecodeContainer(decodedMessage)
+						decodedMessage := signature.DecodeBase64(base64EncodedMessage)
+						messageContainer := signature.DecodeContainer(decodedMessage)
 
-						if isAuthentic := helpers.IsAuthentic(messageContainer, &asymmetricKey); isAuthentic {
+						if isAuthentic := signature.IsAuthentic(messageContainer, &asymmetricKey); isAuthentic {
 							fmt.Println("The message is authentic!")
 							fmt.Println(messageContainer.Message)
 							os.Exit(0)
